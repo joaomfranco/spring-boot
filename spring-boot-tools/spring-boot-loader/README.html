@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Spring Boot - Docs</title>
+	<link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+  </head>
+  
+  <body>
+
+    <div class="container">
+
+       <h1>Spring Boot - Loader</h1>
+
+<p>The Spring Boot Loader module allows JAR and WAR files that contain nested dependencies
+to be run using <code>java -jar archive.jar</code>.</p>
+
+<blockquote>
+<p><strong>Note:</strong> The quickest way to build a compatible archive is to use the
+<a href="../spring-boot-maven-plugin">spring-boot-maven-plugin</a> or
+<a href="../spring-boot-gradle-plugin">spring-boot-gradle-plugin</a>.</p>
+</blockquote>
+
+<h2>Nested JARs</h2>
+
+<p>Java does not provide any standard way to load nested jar files (i.e. jar files that
+are themselves contained within a jar). This can be problematic if you are looking
+to distribute a self contained application that you can just run from the command line
+without unpacking.</p>
+
+<p>To solve this problem, many developers use &#39;shaded&#39; jars. A shaded jar simply packages
+all classes, from all jars, into a single &#39;uber jar&#39;. The problem with shaded jars is
+that it becomes hard to see which libraries you are actually using in your application.
+It can also be problematic if the the same filename is used (but with different content)
+in multiple jars. Spring Boot takes a different approach and allows you to actually nest
+jars directly.</p>
+
+<h3>JAR file structure</h3>
+
+<p>Spring Boot Loader compatible jar files should be structured in the following way:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">example.jar
+ |
+ +-META-INF
+ |  +-MANIFEST.MF
+ +-org
+ |  +-springframework
+ |     +-boot
+ |        +-loader
+ |           +-&lt;spring boot loader classes&gt;
+ +-com
+ |  +-mycompany
+ |     + project
+ |        +-YouClasses.class
+ +-lib
+    +-dependency1.jar
+    +-dependency2.jar
+</code></pre></div>
+<p>Dependencies should be placed in a nested <code>lib</code> directory.</p>
+
+<p>See <a href="src/it/executable-jar">executable-jar</a> for an example project.</p>
+
+<h3>WAR file structure</h3>
+
+<p>Spring Boot Loader compatible war files should be structured in the following way:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">example.jar
+ |
+ +-META-INF
+ |  +-MANIFEST.MF
+ +-org
+ |  +-springframework
+ |     +-boot
+ |        +-loader
+ |           +-&lt;spring boot loader classes&gt;
+ +-WEB-INF
+    +-classes
+    |  +-com
+    |     +-mycompany
+    |        +-project
+    |           +-YouClasses.class
+    +-lib
+    |  +-dependency1.jar
+    |  +-dependency2.jar
+    +-lib-provided
+       +-servlet-api.jar
+       +-dependency3.jar
+</code></pre></div>
+<p>Dependencies should be placed in a nested <code>WEB-INF/lib</code> directory. Any dependencies
+that are required when running embedded but are not required when deploying to
+a traditional web container should be placed in <code>WEB-INF/lib-provided</code>.</p>
+
+<p>See <a href="src/it/executable-war">executable-war</a> for an example project.</p>
+
+<h2>RandomAccessJarFile</h2>
+
+<p>The core class used to support loading nested jars is
+<code>org.springframework.boot.loader.jar.RandomAccessJarFile</code>. It allows  you load jar
+content from a standard jar file or from nested child jar data. When first  loaded, the
+location of each  <code>JarEntry</code> is mapped to a physical file offset of the outer jar:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">myapp.jar
++---------+---------------------+
+|         | /lib/mylib.jar      |
+| A.class |+---------+---------+|
+|         || B.class | B.class ||
+|         |+---------+---------+|
++---------+---------------------+
+^          ^          ^
+0063       3452       3980
+</code></pre></div>
+<p>The example above shows how <code>A.class</code> can be found in <code>myapp.jar</code> position <code>0063</code>.
+<code>B.class</code> from the nested jar can actually be found in <code>myapp.jar</code> position <code>3452</code>
+and <code>B.class</code> is at position <code>3980</code>.</p>
+
+<p>Armed with this information, we can load specific nested entries by simply seeking to
+appropriate part if the outer jar. We don&#39;t need to unpack the archive and we don&#39;t
+need to read all entry data into memory.</p>
+
+<h3>Compatibility</h3>
+
+<p>Spring Boot Loader strives to remain compatible with existing code and libraries. The
+<code>RandomAccessJarFile</code> extends from <code>java.util.jar.JarFile</code> and should work as a drop-in
+replacement. The <code>RandomAccessJarFile.getURL()</code> method will return a <code>URL</code> that opens
+a <code>java.net.JarURLConnection</code> compatible connection. <code>RandomAccessJarFile</code> URLs can
+be used with Java&#39;s <code>URLClassLoader</code>.</p>
+
+<h2>Launching</h2>
+
+<p>The <code>org.springframework.boot.loader.Launcher</code> class can be used to run your packaged
+application. It takes care of setting up an appropriate <code>URLClassLoader</code> and calling
+your <code>main()</code> method.</p>
+
+<h3>Launcher manifest</h3>
+
+<p>You need specify an appropriate <code>Launcher</code> as the <code>Main-Class</code> attribute of
+<code>META-INF/MANIFEST.MF</code>. The actual class that you want to launch (i.e. the class that
+you wrote that contains a <code>main</code> method) should be specified  in the <code>Start-Class</code>
+attribute.</p>
+
+<p>For example, here is a typical <code>MANIFEST.MF</code> for a executable jar file:
+<code>
+Main-Class: org.springframework.boot.loader.JarLauncher
+Start-Class: com.mycompany.project.MyApplication
+</code></p>
+
+<p>For a war file, it would be:
+<code>
+Main-Class: org.springframework.boot.loader.WarLauncher
+Start-Class: com.mycompany.project.MyApplication
+</code></p>
+
+<blockquote>
+<p><strong>Note:</strong> You do not need to specify <code>Class-Path</code> entries in your manifest file, the
+classpath will be deduced from the nested jars.</p>
+</blockquote>
+
+<h3>Exploded archives</h3>
+
+<p>Certain PaaS implementations may choose to unpack archives before they run. For example,
+Cloud Foundry operates in this way. You can run an unpacked archive by simply starting
+the appropriate launcher:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ unzip -q myapp.jar
+$ java org.springframework.boot.loader.JarLauncher
+</code></pre></div>
+<h2>Restrictions</h2>
+
+<p>There are a number of restrictions that you need to consider when working with a Spring
+Boot Loader packaged application.</p>
+
+<h3>URLs</h3>
+
+<p>URLs for nested jar entries intentionally look and behave like standard jar URLs,
+You cannot, however, directly create a nested jar URL from a string:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">URL url = classLoader.getResoure(&quot;/a/b.txt&quot;);
+String s = url.toString(); // In the form &#39;jar:file:/file.jar!/nested.jar!/a/b.txt&#39;
+new URL(s); // This will fail
+</code></pre></div>
+<p>If you need to obtain URL using a String, ensure that you always provide a context URL
+to the constructor. This will ensure that the custom <code>URLStreamHandler</code> used to support
+nested jars is used.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">URL url = classLoader.getResoure(&quot;/a&quot;);
+new URL(url, &quot;b.txt&quot;);
+</code></pre></div>
+<h3>Zip entry compression</h3>
+
+<p>The <code>ZipEntry</code> for a nested jar must be saved using the <code>ZipEntry.STORED</code> method. This
+is required so that we can seek directly to individual content within the nested jar.
+The content of the nested jar file itself can still be compressed, as can any other
+entries in the outer jar. You can use the Spring Boot
+<a href="../spring-boot-maven-plugin">Maven</a> or <a href="../spring-boot-gradle-plugin">Gradle</a> plugins
+to ensure that your archives are written correctly.</p>
+
+<h3>System ClassLoader</h3>
+
+<p>Launched applications should use <code>Thread.getContextClassLoader()</code> when loading classes
+(most libraries and frameworks will do this by default). Trying to load nested jar
+classes via <code>ClassLoader.getSystemClassLoader()</code> will fail. Please be aware that
+<code>java.util.Logging</code> always uses the system classloader, for this reason you should
+consider a different logging implementation.</p>
+
+<h3>Alternatives</h3>
+
+<p>If the above restrictions mean that you cannot use Spring Boot Loader the following
+alternatives could be considered:</p>
+
+<ul>
+<li><a href="http://maven.apache.org/plugins/maven-shade-plugin/">Maven Shade Plugin</a></li>
+<li><a href="http://www.jdotsoft.com/JarClassLoader.php">JarClassLoader</a></li>
+<li><a href="http://one-jar.sourceforge.net">OneJar</a></li>
+</ul>
+
+<h2>Further Reading</h2>
+
+<p>For more information about any of the classes or interfaces discussed in the document
+please refer to the project Javadoc. If you need to build a compatible archives see the
+<a href="../spring-boot-maven-plugin">spring-boot-maven-plugin</a> or
+<a href="../spring-boot-gradle-plugin">spring-boot-gradle-plugin</a>. If you are not using Maven
+or Gradle <a href="../spring-boot-loader-tools">spring-boot-loader-tools</a> provides some useful
+utilities to rewite existing zip files.</p>
+
+
+    </div>
+
+	<script type="text/javascript" src="http://www.websequencediagrams.com/service.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Spring Boot - Docs</title>
+	<link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+  </head>
+  
+  <body>
+
+    <div class="container">
+
+       <h1>Spring Boot - Loader Tools</h1>
+
+<p>The Spring Boot Loader Tools module provides support utilities to help when creating
+<a href="../spring-boot-loader">Spring Boot Loader</a> compatible archives. This module is
+used by the various build system plugins that we provide.</p>
+
+<blockquote>
+<p><strong>Note:</strong> The quickest way to build a compatible archive is to use the
+<a href="../spring-boot-maven-plugin">spring-boot-maven-plugin</a> or
+<a href="../spring-boot-gradle-plugin">spring-boot-gradle-plugin</a>.</p>
+</blockquote>
+
+<h2>Repackaging archives</h2>
+
+<p>To repackage an existing archive so that it becomes a self-contained executable archive
+use <code>org.springframework.boot.loader.tools.Repackager</code>. The <code>Repackager</code> class takes a
+single constructor argument that refers to an existing jar or war archive. Use one of the
+two available <code>repackage()</code> methods to either replace the original file or write to a new
+destination. Various settings can also be configured on the repackager before it is
+run.</p>
+
+<h2>Libraries</h2>
+
+<p>When repackaging an archive you can include references to dependency files using the
+<code>org.springframework.boot.loader.tools.Libraries</code> interface. We don&#39;t provide any
+concrete implementations of <code>Libraries</code> here as they are usually build system specific.</p>
+
+<p>If your archive already includes libraries you can use <code>Libraries.NONE</code></p>
+
+<h2>Finding a main class</h2>
+
+<p>If you don&#39;t use <code>Repackager.setMainClass()</code> to specify a main class, the repackager will
+use <a href="http://asm.ow2.org/">ASM</a> to read class files and attempt to find a suitable class.
+The first class with a <code>public static void main(String[] args)</code> method will be used.
+Searching is performed using a breadth first algorithm, with the assumption that the main
+class will appear high in the package structure.</p>
+
+<h2>Example</h2>
+
+<p>Here is a typical example repackage:</p>
+<div class="highlight"><pre><code class="java language-java" data-lang="java"><span class="n">Repackager</span> <span class="n">repackager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Repackager</span><span class="o">(</span><span class="n">sourceJarFile</span><span class="o">);</span>
+<span class="n">repackager</span><span class="o">.</span><span class="na">setBackupSource</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<span class="n">repackager</span><span class="o">.</span><span class="na">repackage</span><span class="o">(</span><span class="k">new</span> <span class="n">Libraries</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doWithLibraries</span><span class="o">(</span><span class="n">LibraryCallback</span> <span class="n">callback</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+                <span class="c1">// Build system specific implementation, callback for each dependency</span>
+                <span class="c1">// callback.library(nestedFile, LibraryScope.COMPILE);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+</code></pre></div>
+<h2>Further Reading</h2>
+
+<p>For more information on how Spring Boot Loader archives work take a look at the
+<a href="../spring-boot-loader">spring-boot-loader</a> module. If you want to see how we use this
+library the <a href="../spring-boot-maven-plugin">Maven</a> and
+<a href="../spring-boot-gradle-plugin">Gradle</a> plugins are good place to start.</p>
+
+
+    </div>
+
+	<script type="text/javascript" src="http://www.websequencediagrams.com/service.js"></script>
+
+  </body>
+</html>
