@@ -12,7 +12,7 @@
 
     <div class="container">
 
-       <h1>Spring Boot</h1>
+       <h1 id="toc_0">Spring Boot</h1>
 
 <p>Spring Boot makes it easy to create Spring-powered, production-grade applications and
 services with absolute minimum fuss. It takes an opinionated view of the Spring platform
@@ -34,7 +34,7 @@ diverge from the defaults</li>
 <li>Absolutely no code generation and no requirement for XML configuration</li>
 </ul>
 
-<h2>Spring Boot CLI</h2>
+<h2 id="toc_1">Spring Boot CLI</h2>
 
 <p>The Spring Boot CLI is a command line tool that can be used if you want to quickly
 prototype with Spring. It allows you to run <a href="http://groovy.codehaus.org/">Groovy</a> scripts,
@@ -48,7 +48,7 @@ way to get a Spring application off the ground.</p>
 <a href="#quick-start-java-example">jump ahead to the Java example</a>.</p>
 </blockquote>
 
-<h3>Installing the CLI</h3>
+<h3 id="toc_2">Installing the CLI</h3>
 
 <p>You need <a href="http://www.java.com">Java SDK v1.6</a> or higher to run the command line tool
 (there are even some issues with the <code>1.7.0_25</code> build of openjdk, so stick to earlier
@@ -56,7 +56,7 @@ builds or use <code>1.6</code> for preference). You should check your current Ja
 before you begin:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ java -version
 </code></pre></div>
-<h3>Manual installation</h3>
+<h3 id="toc_3">Manual installation</h3>
 
 <p>You can download the Spring CLI distribution from the Spring software repository:</p>
 
@@ -75,7 +75,7 @@ from the unpacked archive. In summary: there is a <code>spring</code> script
 or alternatively you can use <code>java -jar</code> with the <code>.jar</code> file (the
 script helps you to be sure that the classpath is set correctly).</p>
 
-<h3>Installation with GVM</h3>
+<h3 id="toc_4">Installation with GVM</h3>
 
 <p>GVM (the Groovy Environment Manager) can be used for managing multiple
 versions of verious Groovy and Java binary packages, including Groovy
@@ -85,7 +85,7 @@ itself and the Spring Boot CLI. Get <code>gvm</code> from
 $ spring --version
 Spring Boot v0.5.0.M1
 </code></pre></div>
-<h3>OSX Homebrew installation</h3>
+<h3 id="toc_5">OSX Homebrew installation</h3>
 
 <p>If you are on a Mac and using <a href="http://brew.sh/">homebrew</a>, all you need to do to install
 the Spring Boot CLI is:</p>
@@ -99,7 +99,7 @@ the Spring Boot CLI is:</p>
 out-of-date. Just execute <code>brew update</code> and try again.</p>
 </blockquote>
 
-<h3>Quick start script example</h3>
+<h3 id="toc_6">Quick start script example</h3>
 
 <p>Here&#39;s a really simple web application. Create a file called <code>app.groovy</code>:</p>
 <div class="highlight"><pre><code class="groovy language-groovy" data-lang="groovy"><span class="nd">@Controller</span>
@@ -128,12 +128,12 @@ should see  the following output:</p>
 <p>Hello World!</p>
 </blockquote>
 
-<h2>Spring Boot with Java</h2>
+<h2 id="toc_7">Spring Boot with Java</h2>
 
 <p>If you don&#39;t want to use the command line tool, or you would rather work using Java and
 an IDE you can. Here is how you build the same example using Java.</p>
 
-<h3>Quick start Maven POM</h3>
+<h3 id="toc_8">Quick start Maven POM</h3>
 
 <p>You will need to install <a href="http://maven.apache.org/">Apache Maven</a> v3.0.5 or above to build
 this example.</p>
@@ -205,7 +205,7 @@ a <a href="spring-boot-tools/spring-boot-gradle-plugin/README.html">plugin</a> t
 package an executable JAR.</p>
 </blockquote>
 
-<h3>Quick start Java example</h3>
+<h3 id="toc_9">Quick start Java example</h3>
 
 <p>Here is the main class for a simple web application (just save the content to
 <code>src/main/java/SampleController.java</code>):</p>
@@ -244,7 +244,7 @@ should see  the following output:</p>
 <p>Hello World!</p>
 </blockquote>
 
-<h2>Building Spring Boot from source</h2>
+<h2 id="toc_10">Building Spring Boot from source</h2>
 
 <p>You don&#39;t need to build from source to use Spring Boot (it&#39;s in
 <a href="http://repo.springsource.org">repo.springsource.org</a>), but if you want to try out the
@@ -254,7 +254,7 @@ latest and greatest, Spring Boot can be
 </code></pre></div>
 <p><em>Also see <a href="CONTRIBUTING.html">CONTRIBUTING.md</a> if you wish to submit pull requests.</em></p>
 
-<h2>Further Reading</h2>
+<h2 id="toc_11">Further Reading</h2>
 
 <p>There are a number of modules in Spring Boot, if you want learn more about each one
 please refer to the appropriate README.md file:</p>
@@ -263,7 +263,7 @@ please refer to the appropriate README.md file:</p>
 <p><strong>Note:</strong> We are currently still working on documentation for Spring Boot.</p>
 </blockquote>
 
-<h3>spring-boot</h3>
+<h3 id="toc_12">spring-boot</h3>
 
 <p>The main library providing features that support the other parts of Spring Boot,
 these include:</p>
@@ -280,7 +280,7 @@ defaults</li>
 
 <p><em>See <a href="spring-boot/README.html">spring-boot/README.md</a>.</em></p>
 
-<h3>spring-boot-autoconfigure</h3>
+<h3 id="toc_13">spring-boot-autoconfigure</h3>
 
 <p>Spring Boot can configure large parts of common applications based on the content
 of their classpath. A single <code>@EnableAutoConfiguration</code> annotation triggers
@@ -293,7 +293,7 @@ always back away as the user starts to define their own beans.</p>
 
 <p><em>See <a href="spring-boot-autoconfigure/README.html">spring-boot-autoconfigure/README.md</a>.</em></p>
 
-<h3>spring-boot-starters</h3>
+<h3 id="toc_14">spring-boot-starters</h3>
 
 <p>Starters are a set of convenient dependency descriptors that you can include in
 your application. You get a one-stop-shop for all the Spring and related technology
@@ -304,7 +304,7 @@ project, and you are good to go.</p>
 
 <p><em>See <a href="spring-boot-starters/README.html">spring-boot-starters/README.md</a>.</em></p>
 
-<h3>spring-boot-cli</h3>
+<h3 id="toc_15">spring-boot-cli</h3>
 
 <p>The Spring command line application compiles and runs Groovy source, making it super
 easy to write the absolute minimum of code to get an application running. Spring CLI
@@ -312,7 +312,7 @@ can also watch files, automatically recompiling and restarting when they change.
 
 <p><em>See <a href="spring-boot-cli/README.html">spring-boot-cli/README.md</a>.</em></p>
 
-<h3>spring-boot-actuator</h3>
+<h3 id="toc_16">spring-boot-actuator</h3>
 
 <p>Spring Boot Actuator provides additional auto-configuration to decorate your application
 with features that make it instantly deployable and supportable in production.  For
@@ -323,7 +323,7 @@ makes that really easy as well.</p>
 
 <p><em>See <a href="spring-boot-actuator/README.html">spring-boot-actuator/README.md</a>.</em></p>
 
-<h3>spring-boot-loader</h3>
+<h3 id="toc_17">spring-boot-loader</h3>
 
 <p>Spring Boot Loader provides the secret sauce that allows you to build a single jar file
 that can be launched using <code>java -jar</code>. Generally you will not need to use
@@ -333,7 +333,7 @@ that can be launched using <code>java -jar</code>. Generally you will not need t
 
 <p><em>See <a href="spring-boot-tools/spring-boot-loader/README.html">spring-boot-loader/README.md</a>.</em></p>
 
-<h2>Samples</h2>
+<h2 id="toc_18">Samples</h2>
 
 <p>Groovy samples for use with the command line application are available in
 <a href="https://github.com/SpringSource/spring-boot/tree/master/spring-boot-cli/samples">spring-boot-cli/samples</a>. To run the CLI samples type

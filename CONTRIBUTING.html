@@ -12,7 +12,7 @@
 
     <div class="container">
 
-       <h1>Contributing to Spring Boot</h1>
+       <h1 id="toc_0">Contributing to Spring Boot</h1>
 
 <p>Spring Boot is released under the non-restrictive Apache 2.0 license. If you would like
 to contribute something, or simply want to hack on the code this document should help
@@ -24,7 +24,7 @@ Signing the contributor&#39;s agreement does not grant anyone commit rights to t
 can accept your contributions, and you will get an author credit if we do.  Active contributors might be asked to join
 the core team, and given the ability to merge pull requests.</p>
 
-<h2>Code Conventions and Housekeeping</h2>
+<h2 id="toc_1">Code Conventions and Housekeeping</h2>
 
 <p>None of these is essential for a pull request, but they will all help.  They can also be added after the original pull
 request but before a merge.</p>
@@ -42,7 +42,7 @@ preferably at least a paragraph on what the class is for.</li>
 <li>If no-one else is using your branch, please rebase it against the current master (or other target branch in the main project).</li>
 </ul>
 
-<h2>Working with the code</h2>
+<h2 id="toc_2">Working with the code</h2>
 
 <p>If you don&#39;t have an IDE preference we would recommend that you use
 <a href="http://www.springsource.com/developer/sts">Spring Tools Suite</a> or
@@ -50,7 +50,7 @@ preferably at least a paragraph on what the class is for.</li>
 <a href="http://eclipse.org/m2e/">m2eclipe</a> eclipse plugin for maven support. Other IDEs
 and tools should also work without issue.</p>
 
-<h3>Building from source</h3>
+<h3 id="toc_3">Building from source</h3>
 
 <p>To build the source you will need to install
 <a href="http://maven.apache.org/run-maven/index.html">Apache Maven</a> v3.0 or above. The project
@@ -61,7 +61,7 @@ can be build using the standard maven command:</p>
 to submit a pull request:</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">$ mvn clean install -DskipTests
 </code></pre></div>
-<h3>Importing into eclipse with m2eclipse</h3>
+<h3 id="toc_4">Importing into eclipse with m2eclipse</h3>
 
 <p>We recommend the <a href="http://eclipse.org/m2e/">m2eclipe</a> eclipse plugin when working with
 eclipse. If you don&#39;t already have m2eclipse installed it is available from the &quot;eclipse
@@ -86,7 +86,7 @@ changes just won&#39;t be automatically formatted.</em></p>
 <code>import existing maven projects</code> from the <code>file</code> menu to import the code. You will
 need to import the root <code>spring-boot</code> pom and the <code>spring-boot-samples</code> pom separately.</p>
 
-<h3>Importing into eclipse without m2eclipse</h3>
+<h3 id="toc_5">Importing into eclipse without m2eclipse</h3>
 
 <p>If you prefer not to use m2eclipse you can generate eclipse project meta-data using the
 following command:</p>
@@ -95,11 +95,11 @@ following command:</p>
 <p>The generated eclipse projects can be imported by selecting <code>import existing projects</code>
 from the <code>file</code> menu.</p>
 
-<h3>Importing into other IDEs</h3>
+<h3 id="toc_6">Importing into other IDEs</h3>
 
 <p>Maven is well supported by most Java IDEs. Refer to you vendor documentation.</p>
 
-<h3>Integration tests</h3>
+<h3 id="toc_7">Integration tests</h3>
 
 <p>The sample application are used as integration tests during the build (when you 
 <code>mvn install</code>). Due to the fact that they make use of the <code>spring-boot-maven-plugin</code> 
