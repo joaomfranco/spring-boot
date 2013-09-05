@@ -238,6 +238,7 @@ latest and greatest, Spring Boot can be
 _Also see [CONTRIBUTING.md](CONTRIBUTING.md) if you wish to submit pull requests._
 
 ## Further Reading
+
 There are a number of modules in Spring Boot, if you want learn more about each one
 please refer to the appropriate README.md file:
 
