@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spring Boot</title>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap-select.css" />
+
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/main.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/typography.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/icons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/projects.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/buttons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/guide.css.css" />
+
+  <script type="text/javascript" src="/spring-boot/js/jquery.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap-select.js"></script>
+
+  <script type="text/javascript" src="/spring-boot/js/underscore.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/backbone.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/projectDocumentationWidget.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/application.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/ZeroClipboard.min.js"></script>
+  <script type="text/javascript">
+    var apiBaseUrl = "http://springframework.io";
+    var projectId = "spring-boot";
+    var siteBaseUrl = "/spring-boot";
+  </script>
+  <script type="text/javascript" src="/spring-boot/js/copySnippets.js"></script>
+  <meta name="google-site-verification" content="7qGntFPD9lWAVCtUu5U77v4l68PsTHf6xpzgjQv2j2M" />
+</head>
+<body>
+  <header class="navbar header--navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <div class="spring-logo--container">
+          <div class="logo-bg"></div>
+          <a class="spring-logo" href="http://springframework.io"></a>
+        </div>
+        <ul class="nav pull-right">
+          <li class="navbar-link">
+            <a href="http://springframework.io/docs">Docs</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/guides">Guides</a>
+          </li>
+          <li class="navbar-link active">
+            <a href="http://springframework.io/projects">Projects</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/blog">Blog</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://forum.springframework.io">Forum</a>
+          </li>
+          <li class="navbar-link nav-search">
+            <i class="icon-search navbar-search--icon js-search-input-open"></i>
+            <div class="search-input-close js-search-input-close">x</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-dropdown--container js-search-dropdown">
+      <div class="container-fluid">
+        <div class="search-form--container">
+          <form class="form-inline form-search" action="http://springframework.io/search" method="get">
+            <input type="text" class="search-query search-form--form js-search-input" placeholder="Search for documention, guides, and posts..." name="q" />
+            <button type="submit" class="search-form--submit"><i class="icon-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="body--container container-fluid">
+    <h1 id="toc_0">Spring Boot - Actuator</h1>
+
+<blockquote>
+<p><strong>Note:</strong> Some of this documentation covers concepts from other modules, it will be
+cleaned up before the final release.</p>
+</blockquote>
+
+<p>The aim of this project is minimum fuss for getting applications up
+and running in production, and in other environments.  There is a
+strong emphasis on implementing RESTful web services but many features
+are more generic than that.</p>
+
+<table><thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Server</td>
+<td>Tomcat or Jetty</td>
+<td>Whatever is on the classpath</td>
+</tr>
+<tr>
+<td>REST</td>
+<td>Spring MVC</td>
+<td></td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Spring Security</td>
+<td>If on the classpath</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Logback, Log4j or JDK</td>
+<td>Whatever is on the classpath. Sensible defaults.</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>HSQLDB or H2</td>
+<td>Per classpath, or define a DataSource to override</td>
+</tr>
+<tr>
+<td>Externalized configuration</td>
+<td>Properties or YAML</td>
+<td>Support for Spring profiles. Bind automatically to @Bean.</td>
+</tr>
+<tr>
+<td>Audit</td>
+<td>Spring Security and Spring ApplicationEvent</td>
+<td>Flexible abstraction with sensible defaults for security events</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>JSR-303</td>
+<td>If on the classpath</td>
+</tr>
+<tr>
+<td>Management endpoints</td>
+<td>Spring MVC</td>
+<td>Health, basic metrics, request tracing, shutdown, thread dumps</td>
+</tr>
+<tr>
+<td>Error pages</td>
+<td>Spring MVC</td>
+<td>Sensible defaults based on exception and status code</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Jackson 2</td>
+<td></td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>Spring Data JPA</td>
+<td>If on the classpath</td>
+</tr>
+<tr>
+<td>Batch</td>
+<td>Spring Batch</td>
+<td>If enabled and on the classpath</td>
+</tr>
+<tr>
+<td>Integration Patterns</td>
+<td>Spring Integration</td>
+<td>If on the classpath</td>
+</tr>
+</tbody></table>
+
+<p>For a quick introduction and to get started quickly with a new
+project, carry on reading.  For more in depth coverage of the features
+of Spring Boot Actuator, go to the
+<a href="docs/Features.html">Feature Guide</a>.</p>
+
+<h1 id="toc_1">Getting Started</h1>
+
+<p>You will need Java (6 at least) and a build tool (Maven is what we use
+below, but you are more than welcome to use gradle).  These can be
+downloaded or installed easily in most operating systems.  For Ubuntu:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ sudo apt-get install openjdk-6-jdk maven
+</code></pre></div>
+<!--FIXME: short instructions for Mac.-->
+
+<h2 id="toc_2">A basic project</h2>
+
+<p>If you are using Maven create a really simple <code>pom.xml</code> with 2 dependencies:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+  &lt;artifactId&gt;myproject&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;&lt;/version&gt;
+  &lt;/parent&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+     &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre></div>
+<p>If you like Gradle, that&#39;s fine, and you will know what to do with
+those dependencies.  The first dependency adds Spring Boot auto
+configuration and the Tomcat container to your application, and the
+second one adds some more opinionated stuff like the default
+management endpoints.  If you prefer Jetty you can just add the
+embedded Jetty jars to your classpath instead of Tomcat (once you
+exclude the <code>spring-starter-tomcat</code> dependency).</p>
+
+<h2 id="toc_3">Adding a business endpoint</h2>
+
+<p>To do something useful to your business you need to add at least one
+endpoint.  An endpoint can be implemented as a Spring MVC
+<code>@Controller</code>, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">@Controller
+@EnableAutoConfiguration
+public class SampleController {
+
+  @RequestMapping(&quot;/&quot;)
+  @ResponseBody
+  public Map&lt;String, String&gt; helloWorld() {
+    return Collections.singletonMap(&quot;message&quot;, &quot;Hello World&quot;);
+  }
+
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(SampleController.class, args);
+  }
+
+}
+</code></pre></div>
+<p>You can use the main method to launch it from your project jar.  You
+can also launch that straight using the Spring Boot CLI (without
+the <code>@EnableAutoConfiguration</code> and even without the import statements
+that your IDE will add if you are using one), if you just add</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">@Grab(&quot;org.springframework.boot:spring-boot-starter-actuator:&quot;)
+</code></pre></div>
+<p>and package and run:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ mvn package
+$ java -jar target/myproject-1.0.0-SNAPSHOT.jar
+$ curl localhost:8080/
+{&quot;message&quot;: &quot;Hello World&quot;}
+</code></pre></div>
+<p>There are also some endpoins that you didn&#39;t implement by came free
+with the Actuator:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ curl localhost:8080/health
+ok
+$ curl localhost:8080/metrics
+{&quot;counter.status.200.health&quot;:1.0,&quot;gauge.response.health&quot;:10.0,&quot;mem&quot;:120768.0,&quot;mem.free&quot;:105012.0,&quot;processors&quot;:4.0}
+</code></pre></div>
+<p><code>/health</code> is the default location for the health endpoint - it tells
+you if the application is running and healthy. <code>/metrics</code> is the default
+location for the metrics endpoint - it gives you basic counts and
+response timing data by default but there are plenty of ways to
+customize it.  You can also try <code>/trace</code> and <code>/dump</code> to get some
+interesting information about how and what your app is doing.</p>
+
+<h2 id="toc_4">Running the application</h2>
+
+<p>You can package the app and run it as a jar (as above) and that&#39;s very
+convenient for production usage.  Or there are other options, many of
+which are more convenient at development time.  Here are a few:</p>
+
+<ol>
+<li><p>Use the Maven exec plugin, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ mvn exec:java
+</code></pre></div></li>
+<li><p>Run directly in your IDE, e.g. Eclipse or IDEA let you right click
+on a class and run it.</p></li>
+<li><p>Use a different Maven plugin.</p></li>
+<li><p>Find feature in Gradle that does the same thing.</p></li>
+<li><p>Use the Spring executable.  &lt;!--FIXME: document this maybe.--&gt;</p></li>
+</ol>
+
+<h2 id="toc_5">Externalizing configuration</h2>
+
+<p>Spring Boot likes you to externalize your configuration so you
+can work with the same application code in different environments.  To
+get started with this you create a file in the root of your classpath
+(<code>src/main/resources</code> if using Maven) - if you like YAML you can call
+it <code>application.yml</code>, e.g.:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">server:
+  port: 9000
+management:
+  port: 9001
+logging:
+  file: target/log.out
+</code></pre></div>
+<p>or if you like Java <code>Properties</code> files, you can call it
+<code>application.properties</code>, e.g.:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">server.port: 9000
+management.port: 9001
+logging.file: target/log.out
+</code></pre></div>
+<p>Those examples are properties that Spring Boot itself binds to
+out of the box, so if you make that change and run the app again, you
+will find the home page on port 9000 instead of 8080:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ curl localhost:9000/
+{&quot;message&quot;: &quot;Hello World&quot;}
+</code></pre></div>
+<p>and the management endpoints on port 9001 instead of 8080:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ curl localhost:9001/health
+ok
+</code></pre></div>
+<p>To externalize business configuration you can simply add a default
+value to your configuration file, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">server:
+  port: 9000
+management:
+  port: 9001
+logging:
+  file: target/log.out
+service:
+  message: Awesome Message
+</code></pre></div>
+<p>and then bind to it in the application code.  The simplest way to do
+that is to simply refer to it in an <code>@Value</code> annotation, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">@Controller
+@EnableAutoConfiguration
+public class SampleController {
+
+  @Value(&quot;${service.message:Hello World}&quot;)
+  private String value = &quot;Goodbye Everypone&quot;
+
+  @RequestMapping(&quot;/&quot;)
+  @ResponseBody
+  public Map&lt;String, String&gt; helloWorld() {
+    return Collections.singletonMap(&quot;message&quot;, message);
+  }
+
+  ...
+}
+</code></pre></div>
+<p>That&#39;s a little bit confusing because we have provided a message value
+in three different places - in the external configuration (&quot;Awesome
+Message&quot;), in the <code>@Value</code> annotation after the colon (&quot;Hello World&quot;),
+and in the filed initializer (&quot;Goodbye Everyone&quot;).  That was only to
+show you how and you only need it once, so it&#39;s your choice (it&#39;s
+useful for unit testing to have the Java initializer as well as the
+external value).  Note that the YAML object is flattened using period
+separators.</p>
+
+<p>For simple Strings where you have sensible defaults <code>@Value</code> is
+perfect, but if you want more and you like everything strongly typed
+then you can have Spring bind the properties and validate them
+automatically in a separate value object.  For instance:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">// ServiceProperties.java
+@ConfigurationProperties(name=&quot;service&quot;)
+public class ServiceProperties {
+    private String message;
+    private int value = 0;
+    ... getters and setters
+}
+
+// SampleController.java
+@Controller
+@EnableAutoConfiguration
+@EnableConfigurationProperties(ServiceProperties.class)
+public class SampleController {
+
+  @Autowired
+  private ServiceProperties properties;
+
+  @RequestMapping(&quot;/&quot;)
+  @ResponseBody
+  public Map&lt;String, String&gt; helloWorld() {
+    return Collections.singletonMap(&quot;message&quot;, properties.getMessage());
+  }
+
+  ...
+}
+</code></pre></div>
+<p>When you ask to
+<code>@EnableConfigurationProperties(ServiceProperties.class)</code> you are
+saying you want a bean of type <code>ServiceProperties</code> and that you want
+to bind it to the Spring Environment.  The Spring Environment is a
+collection of name-value pairs taken from (in order of decreasing
+precedence) 1) the command line, 2) the external configuration file,
+3) System properties, 4) the OS environment.  Validation is done based
+on JSR-303 annotations by default provided that library (and an
+implementation) is on the classpath.</p>
+
+<h2 id="toc_6">Adding security</h2>
+
+<p>If you add Spring Security java config to your runtime classpath you
+will enable HTTP basic authentication by default on all the endpoints.
+In the <code>pom.xml</code> it would look like this:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+</code></pre></div>
+<p>Try it out:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ curl localhost:8080/
+{&quot;status&quot;: 403, &quot;error&quot;: &quot;Forbidden&quot;, &quot;message&quot;: &quot;Access Denied&quot;}
+$ curl user:password@localhost:8080/
+{&quot;message&quot;: &quot;Hello World&quot;}
+</code></pre></div>
+<p>The default auto configuration has an in-memory user database with one
+entry.  If you want to extend or expand that, or point to a database
+or directory server, you only need to provide a <code>@Bean</code> definition for
+an <code>AuthenticationManager</code>, e.g. in your <code>SampleController</code>:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">@Bean
+public AuthenticationManager authenticationManager() throws Exception {
+  return new AuthenticationBuilder().inMemoryAuthentication().withUser(&quot;client&quot;)
+      .password(&quot;secret&quot;).roles(&quot;USER&quot;).and().and().build();
+}
+</code></pre></div>
+<p>Try it out:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ curl user:password@localhost:8080/
+{&quot;status&quot;: 403, &quot;error&quot;: &quot;Forbidden&quot;, &quot;message&quot;: &quot;Access Denied&quot;}
+$ curl client:secret@localhost:8080/
+{&quot;message&quot;: &quot;Hello World&quot;}
+</code></pre></div>
+<h2 id="toc_7">Adding a database</h2>
+
+<p>Just add <code>spring-jdbc</code> and an embedded database to your dependencies:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.hsqldb&lt;/groupId&gt;
+        &lt;artifactId&gt;hsqldb&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+</code></pre></div>
+<p>Then you will be able to inject a <code>DataSource</code> into your controller:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">@Controller
+@EnableAutoConfiguration
+@EnableConfigurationProperties(ServiceProperties.class)
+public class SampleController {
+
+  private JdbcTemplate jdbcTemplate;
+
+  @Autowired
+  public SampleController(DataSource dataSource) {
+    this.jdbcTemplate = new JdbcTemplate(dataSource);
+  }
+
+  @RequestMapping(&quot;/&quot;)
+  @ResponseBody
+  public Map&lt;String, String&gt; helloWorld() {
+    return jdbcTemplate.queryForMap(&quot;SELECT * FROM MESSAGES WHERE ID=?&quot;, 0);
+  }
+
+  ...
+}
+</code></pre></div>
+<p>The app will run (going back to the default security configuration):</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">       $ curl user:password@localhost:8080/
+       {&quot;error&quot;:&quot;Internal Server Error&quot;, &quot;status&quot;:500, &quot;exception&quot;:...}
+</code></pre></div>
+<p>but there&#39;s no data in the database yet and the <code>MESSAGES</code> table
+ doesn&#39;t even exist, so there&#39;s an error.  One easy way to fix it is
+ to provide a <code>schema.sql</code> script in the root of the classpath, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">create table MESSAGES (
+  ID BIGINT NOT NULL PRIMARY KEY,
+  MESSAGE VARCHAR(255)
+);
+INSERT INTO MESSAGES (ID, MESSAGE) VALUES (0, &#39;Hello Phil&#39;);
+</code></pre></div>
+<p>Now when you run the app you get a sensible response:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">   $ curl user:password@localhost:8080/
+   {&quot;ID&quot;:0, &quot;MESSAGE&quot;:&quot;Hello Phil&quot;}
+</code></pre></div>
+<p>Obviously, this is only the start, but hopefully you have a good grasp
+of the basics and are ready to try it out yourself.</p>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span8">
+          <div class="navbar">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="http://springframework.io/tools">Tools</a></li>
+                <li><a href="http://springframework.io/services">Services</a></li>
+                <li><a href="http://springframework.io/about">About Us</a></li>
+                <li><a href="http://springframework.io/jobs">Work With Us</a></li>
+              </ul>
+            </div>
+          </div>
+          &copy; <script type="text/javascript"> var d = new Date();
+                document.write(d.getFullYear());</script> GoPivotal, Inc. All Rights Reserved.
+          <a href="http://www.gopivotal.com/terms-of-use">Terms</a>,
+          <a href="http://www.gopivotal.com/privacy-policy">Privacy</a>, and
+          <a href="http://springframework.io/logos">Usage</a>
+        </div>
+        <div class="span4 footer-newsletter--wrapper pull-right">
+          <div class="footer-newsletter--container">
+            <form>
+              <label>
+                Subscribe to our newsletter
+              </label>
+              <div class="footer-subscribe--input--container">
+                <input class="footer-subscribe--input" placeholder="Email Address (NOT REAL)" />
+                <input type="submit" class="btn footer-subscibe--btn" value="Subscribe" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="scrim"></div>
+  <script type="text/html" id="project-documentation-widget-template">
+    <div class="right-pane-widget--container no-top-border project-documentation--container">
+        <div class="item-dropdown-widget">
+            <div class="item-dropdown--title">{@= name @}</div>
+            <div class="item--dropdown">
+                <div class="item--body">
+                    <div class="item--body-title">
+                        <div class="item--left-column">Release</div>
+                        <div class="item--right-column">Documentation</div>
+                    </div>
+                    {@ _.each(releases, function(release) { @}
+                    <div class="item--body--version">
+                        <div class="item--left-column">
+                            <p>{@= release.version @}</p>
+                            <div class="spring-icon {@= release.statusIconClass() @}"></div>
+                        </div>
+                        <div class="item--right-column">
+                            <a href='{@= release.refDocUrl @}' class="docs-link reference-link">Reference</a>
+                            <a href='{@= release.apiDocUrl @}' class="docs-link api-link">API</a>
+                        </div>
+                    </div>
+                    {@ }); @}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="project-download-widget-controls-template">
+    <div class="js-download-widget-selector">
+        <select class='selector selectpicker'>
+            {@ _.each(releases, function(release, index) { @}
+            <option value="{@= index @}" data-content="<span>{@= release.versionDisplayName @}</span><div class='spring-icon {@= release.statusIconClass() @}'/>" data-current="{@= release.current @}"> ()</option>
+            {@ }); @}
+        </select>
+    </div>
+
+    <div class="item-slider-widget js-item-slider--wrapper">
+        <div class="item-slider--container">
+            <div class="item--slider js-item--slider"></div>
+            <div class="item js-active js-item" data-snippet-type='maven'>
+                Maven
+            </div>
+            <div class="item js-item" data-snippet-type='gradle'>
+                Gradle
+            </div>
+            <div class="item js-item" data-snippet-type='zip'>
+                Zip
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-maven-widget-template">
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;{@= groupId @}&lt;/groupId&gt;
+        &lt;artifactId&gt;{@= artifactId @}&lt;/artifactId&gt;
+        &lt;version&gt;{@= version @}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+{@ if (repository) { @}
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;{@= repository.id @}&lt;/id&gt;
+        &lt;name&gt;{@= repository.name @}&lt;/name&gt;
+        &lt;url&gt;{@= repository.url @}&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;{@= repository.snapshotsEnabled @}&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;{@ } @}
+</script>
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-gradle-widget-template">
+dependencies {
+    compile '{@= groupId @}:{@= artifactId @}:{@= version @}'
+}
+{@ if (repository) { @}
+repositories {
+    maven {
+        url '{@= repository.url @}'
+    }
+}
+{@ } @}
+</script>
+
+<script type="text/html" id="project-download-zip-widget-template">
+This is a zip url
+</script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42447510-1', 'cfapps.io');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>

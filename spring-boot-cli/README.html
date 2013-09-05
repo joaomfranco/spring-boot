@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spring Boot</title>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap-select.css" />
+
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/main.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/typography.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/icons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/projects.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/buttons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/guide.css.css" />
+
+  <script type="text/javascript" src="/spring-boot/js/jquery.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap-select.js"></script>
+
+  <script type="text/javascript" src="/spring-boot/js/underscore.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/backbone.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/projectDocumentationWidget.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/application.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/ZeroClipboard.min.js"></script>
+  <script type="text/javascript">
+    var apiBaseUrl = "http://springframework.io";
+    var projectId = "spring-boot";
+    var siteBaseUrl = "/spring-boot";
+  </script>
+  <script type="text/javascript" src="/spring-boot/js/copySnippets.js"></script>
+  <meta name="google-site-verification" content="7qGntFPD9lWAVCtUu5U77v4l68PsTHf6xpzgjQv2j2M" />
+</head>
+<body>
+  <header class="navbar header--navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <div class="spring-logo--container">
+          <div class="logo-bg"></div>
+          <a class="spring-logo" href="http://springframework.io"></a>
+        </div>
+        <ul class="nav pull-right">
+          <li class="navbar-link">
+            <a href="http://springframework.io/docs">Docs</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/guides">Guides</a>
+          </li>
+          <li class="navbar-link active">
+            <a href="http://springframework.io/projects">Projects</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/blog">Blog</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://forum.springframework.io">Forum</a>
+          </li>
+          <li class="navbar-link nav-search">
+            <i class="icon-search navbar-search--icon js-search-input-open"></i>
+            <div class="search-input-close js-search-input-close">x</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-dropdown--container js-search-dropdown">
+      <div class="container-fluid">
+        <div class="search-form--container">
+          <form class="form-inline form-search" action="http://springframework.io/search" method="get">
+            <input type="text" class="search-query search-form--form js-search-input" placeholder="Search for documention, guides, and posts..." name="q" />
+            <button type="submit" class="search-form--submit"><i class="icon-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="body--container container-fluid">
+    <h1 id="toc_0">Spring Boot - CLI</h1>
+
+<blockquote>
+<p>We are currently still working on documentation for Spring Boot. Please check back
+in the future.</p>
+</blockquote>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span8">
+          <div class="navbar">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="http://springframework.io/tools">Tools</a></li>
+                <li><a href="http://springframework.io/services">Services</a></li>
+                <li><a href="http://springframework.io/about">About Us</a></li>
+                <li><a href="http://springframework.io/jobs">Work With Us</a></li>
+              </ul>
+            </div>
+          </div>
+          &copy; <script type="text/javascript"> var d = new Date();
+                document.write(d.getFullYear());</script> GoPivotal, Inc. All Rights Reserved.
+          <a href="http://www.gopivotal.com/terms-of-use">Terms</a>,
+          <a href="http://www.gopivotal.com/privacy-policy">Privacy</a>, and
+          <a href="http://springframework.io/logos">Usage</a>
+        </div>
+        <div class="span4 footer-newsletter--wrapper pull-right">
+          <div class="footer-newsletter--container">
+            <form>
+              <label>
+                Subscribe to our newsletter
+              </label>
+              <div class="footer-subscribe--input--container">
+                <input class="footer-subscribe--input" placeholder="Email Address (NOT REAL)" />
+                <input type="submit" class="btn footer-subscibe--btn" value="Subscribe" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="scrim"></div>
+  <script type="text/html" id="project-documentation-widget-template">
+    <div class="right-pane-widget--container no-top-border project-documentation--container">
+        <div class="item-dropdown-widget">
+            <div class="item-dropdown--title">{@= name @}</div>
+            <div class="item--dropdown">
+                <div class="item--body">
+                    <div class="item--body-title">
+                        <div class="item--left-column">Release</div>
+                        <div class="item--right-column">Documentation</div>
+                    </div>
+                    {@ _.each(releases, function(release) { @}
+                    <div class="item--body--version">
+                        <div class="item--left-column">
+                            <p>{@= release.version @}</p>
+                            <div class="spring-icon {@= release.statusIconClass() @}"></div>
+                        </div>
+                        <div class="item--right-column">
+                            <a href='{@= release.refDocUrl @}' class="docs-link reference-link">Reference</a>
+                            <a href='{@= release.apiDocUrl @}' class="docs-link api-link">API</a>
+                        </div>
+                    </div>
+                    {@ }); @}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="project-download-widget-controls-template">
+    <div class="js-download-widget-selector">
+        <select class='selector selectpicker'>
+            {@ _.each(releases, function(release, index) { @}
+            <option value="{@= index @}" data-content="<span>{@= release.versionDisplayName @}</span><div class='spring-icon {@= release.statusIconClass() @}'/>" data-current="{@= release.current @}"> ()</option>
+            {@ }); @}
+        </select>
+    </div>
+
+    <div class="item-slider-widget js-item-slider--wrapper">
+        <div class="item-slider--container">
+            <div class="item--slider js-item--slider"></div>
+            <div class="item js-active js-item" data-snippet-type='maven'>
+                Maven
+            </div>
+            <div class="item js-item" data-snippet-type='gradle'>
+                Gradle
+            </div>
+            <div class="item js-item" data-snippet-type='zip'>
+                Zip
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-maven-widget-template">
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;{@= groupId @}&lt;/groupId&gt;
+        &lt;artifactId&gt;{@= artifactId @}&lt;/artifactId&gt;
+        &lt;version&gt;{@= version @}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+{@ if (repository) { @}
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;{@= repository.id @}&lt;/id&gt;
+        &lt;name&gt;{@= repository.name @}&lt;/name&gt;
+        &lt;url&gt;{@= repository.url @}&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;{@= repository.snapshotsEnabled @}&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;{@ } @}
+</script>
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-gradle-widget-template">
+dependencies {
+    compile '{@= groupId @}:{@= artifactId @}:{@= version @}'
+}
+{@ if (repository) { @}
+repositories {
+    maven {
+        url '{@= repository.url @}'
+    }
+}
+{@ } @}
+</script>
+
+<script type="text/html" id="project-download-zip-widget-template">
+This is a zip url
+</script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42447510-1', 'cfapps.io');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>

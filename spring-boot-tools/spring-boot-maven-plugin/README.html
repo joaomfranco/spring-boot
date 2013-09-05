@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spring Boot</title>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap-select.css" />
+
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/main.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/typography.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/icons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/projects.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/buttons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/guide.css.css" />
+
+  <script type="text/javascript" src="/spring-boot/js/jquery.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap-select.js"></script>
+
+  <script type="text/javascript" src="/spring-boot/js/underscore.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/backbone.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/projectDocumentationWidget.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/application.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/ZeroClipboard.min.js"></script>
+  <script type="text/javascript">
+    var apiBaseUrl = "http://springframework.io";
+    var projectId = "spring-boot";
+    var siteBaseUrl = "/spring-boot";
+  </script>
+  <script type="text/javascript" src="/spring-boot/js/copySnippets.js"></script>
+  <meta name="google-site-verification" content="7qGntFPD9lWAVCtUu5U77v4l68PsTHf6xpzgjQv2j2M" />
+</head>
+<body>
+  <header class="navbar header--navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <div class="spring-logo--container">
+          <div class="logo-bg"></div>
+          <a class="spring-logo" href="http://springframework.io"></a>
+        </div>
+        <ul class="nav pull-right">
+          <li class="navbar-link">
+            <a href="http://springframework.io/docs">Docs</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/guides">Guides</a>
+          </li>
+          <li class="navbar-link active">
+            <a href="http://springframework.io/projects">Projects</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/blog">Blog</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://forum.springframework.io">Forum</a>
+          </li>
+          <li class="navbar-link nav-search">
+            <i class="icon-search navbar-search--icon js-search-input-open"></i>
+            <div class="search-input-close js-search-input-close">x</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-dropdown--container js-search-dropdown">
+      <div class="container-fluid">
+        <div class="search-form--container">
+          <form class="form-inline form-search" action="http://springframework.io/search" method="get">
+            <input type="text" class="search-query search-form--form js-search-input" placeholder="Search for documention, guides, and posts..." name="q" />
+            <button type="submit" class="search-form--submit"><i class="icon-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="body--container container-fluid">
+    <h1 id="toc_0">Spring Boot - Maven Plugin</h1>
+
+<p>The Spring Boot Maven Plugin provides Spring Boot support in Maven, allowing you to
+package executable jar or war archives and run an application in-place.</p>
+
+<h2 id="toc_1">Including the plugin</h2>
+
+<p>To use the Spring Boot Maven Plugin simply include the appropriate XML in the <code>plugins</code>
+section of your <code>pom.xml</code></p>
+<div class="highlight"><pre><code class="xml language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;build&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;artifactId&gt;</span>spring-package-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+                <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+                <span class="nt">&lt;executions&gt;</span>
+                    <span class="nt">&lt;execution&gt;</span>
+                        <span class="nt">&lt;goals&gt;</span>
+                            <span class="nt">&lt;goal&gt;</span>package<span class="nt">&lt;/goal&gt;</span>
+                        <span class="nt">&lt;/goals&gt;</span>
+                    <span class="nt">&lt;/execution&gt;</span>
+                <span class="nt">&lt;/executions&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</code></pre></div>
+<p>If you are using a milestone or snapshot release you will also need to add appropriate
+<code>pluginRepository</code> elements:</p>
+<div class="highlight"><pre><code class="xml language-xml" data-lang="xml"><span class="nt">&lt;pluginRepositories&gt;</span>
+    <span class="nt">&lt;pluginRepository&gt;</span>
+        <span class="nt">&lt;id&gt;</span>spring-snapshots<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;url&gt;</span>http://repo.springsource.org/snapshot<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/pluginRepository&gt;</span>
+    <span class="nt">&lt;pluginRepository&gt;</span>
+        <span class="nt">&lt;id&gt;</span>spring-milestones<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;url&gt;</span>http://repo.springsource.org/milestone<span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/pluginRepository&gt;</span>
+<span class="nt">&lt;/pluginRepositories&gt;</span>
+</code></pre></div>
+<h2 id="toc_2">Packaging executable jar and war files</h2>
+
+<p>Once <code>spring-package-maven-plugin</code> has been included in your <code>pom.xml</code> it will
+automatically attempt to rewrite archives to make them executable using the
+<code>spring-boot:repackage</code> goal. You should configure your project to build a jar or war
+(as appropriate) using the usual <code>packaging</code> element:</p>
+<div class="highlight"><pre><code class="xml language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</code></pre></div>
+<p>Your existing archive will be enhanced by Spring Boot during the <code>package</code>
+phase. The main class that you want to launch can either be specified using a
+configuration option, or by adding a <code>Main-Class</code> attribute to the manifest in the usual
+way. If you don&#39;t specify a main class the plugin will search for a class with a
+<code>public static void main(String[] args)</code> method.</p>
+
+<p>To build and run a project artifact, you do something like this:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ mvn package
+$ java -jar target/mymodule-0.0.1-SNAPSHOT.jar
+</code></pre></div>
+<h3 id="toc_3">Repackage configuration</h3>
+
+<p>The following configuration options are available for the <code>spring-boot:repackage</code> goal:</p>
+
+<p><strong>Required Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>outputDirectory</td>
+<td>File</td>
+<td>Directory containing the generated archive</td>
+<td>${project.build.directory}</td>
+</tr>
+<tr>
+<td>finalName</td>
+<td>String</td>
+<td>Name of the generated archive</td>
+<td>${project.build.finalName}</td>
+</tr>
+</tbody></table>
+
+<p><strong>Optional Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>classifier</td>
+<td>String</td>
+<td>Classifier to add to the artifact generated. If given, the artifact will be attached. If this is not given, it will merely be written to the output directory according to the finalName</td>
+</tr>
+<tr>
+<td>mainClass</td>
+<td>String</td>
+<td>The name of the main class. If not specified the first compiled class found that contains a &#39;main&#39; method will be used</td>
+</tr>
+</tbody></table>
+
+<h2 id="toc_4">Running applications</h2>
+
+<p>The Spring Boot Maven Plugin includes a <code>run</code> goal which can be used to launch your
+application from the command line. Type the following from the root of your maven
+project:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ mvn spring-boot:run
+</code></pre></div>
+<p>By default, any <code>src/main/resources</code> folder will be added to the application classpath
+when you run via the maven plugin. This allows hot refreshing of resources which can be
+very useful when web applications. For example, you can work on HTML, CSS or JavaScipt
+files and see your changes immediately without recompiling your application. It is also
+a helpful way of allowing your front end developers to work without needing to download
+and install a Java IDE.</p>
+
+<h3 id="toc_5">Run configuration</h3>
+
+<p>The following configuration options are available for the <code>spring-boot:run</code> goal:</p>
+
+<p><strong>Required Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>classesDirectrory</td>
+<td>File</td>
+<td>Directory containing the classes and resource files that should be packaged into the archive</td>
+<td>${project.build.outputDirectory}</td>
+</tr>
+</tbody></table>
+
+<p><strong>Optional Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>arguments (or -Drun.arguments)</td>
+<td>String[]</td>
+<td>Arguments that should be passed to the application</td>
+<td></td>
+</tr>
+<tr>
+<td>addResources (or -Drun.addResources)</td>
+<td>boolean</td>
+<td>Add maven resources to the classpath directly, this allows live in-place editing or resources. Since resources will be added directly, and via the target/classes folder they will appear twice if ClassLoader.getResources() is called. In practice however most applications call ClassLoader.getResource() which will always return the first resource</td>
+<td>true</td>
+</tr>
+<tr>
+<td>mainClass</td>
+<td>String</td>
+<td>The name of the main class. If not specified the first compiled class found that contains a &#39;main&#39; method will be used</td>
+<td></td>
+</tr>
+<tr>
+<td>folders</td>
+<td>String[]</td>
+<td>Folders that should be added to the classpath</td>
+<td>${project.build.outputDirectory}</td>
+</tr>
+</tbody></table>
+
+<h2 id="toc_6">Further Reading</h2>
+
+<p>For more information on how Spring Boot Loader archives work, take a look at the
+<a href="../spring-boot-loader">spring-boot-loader</a> module. If you prefer using Gradle to
+build your projects we have a <a href="../spring-boot-gradle-plugin">spring-boot-gradle-plugin</a>.</p>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span8">
+          <div class="navbar">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="http://springframework.io/tools">Tools</a></li>
+                <li><a href="http://springframework.io/services">Services</a></li>
+                <li><a href="http://springframework.io/about">About Us</a></li>
+                <li><a href="http://springframework.io/jobs">Work With Us</a></li>
+              </ul>
+            </div>
+          </div>
+          &copy; <script type="text/javascript"> var d = new Date();
+                document.write(d.getFullYear());</script> GoPivotal, Inc. All Rights Reserved.
+          <a href="http://www.gopivotal.com/terms-of-use">Terms</a>,
+          <a href="http://www.gopivotal.com/privacy-policy">Privacy</a>, and
+          <a href="http://springframework.io/logos">Usage</a>
+        </div>
+        <div class="span4 footer-newsletter--wrapper pull-right">
+          <div class="footer-newsletter--container">
+            <form>
+              <label>
+                Subscribe to our newsletter
+              </label>
+              <div class="footer-subscribe--input--container">
+                <input class="footer-subscribe--input" placeholder="Email Address (NOT REAL)" />
+                <input type="submit" class="btn footer-subscibe--btn" value="Subscribe" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="scrim"></div>
+  <script type="text/html" id="project-documentation-widget-template">
+    <div class="right-pane-widget--container no-top-border project-documentation--container">
+        <div class="item-dropdown-widget">
+            <div class="item-dropdown--title">{@= name @}</div>
+            <div class="item--dropdown">
+                <div class="item--body">
+                    <div class="item--body-title">
+                        <div class="item--left-column">Release</div>
+                        <div class="item--right-column">Documentation</div>
+                    </div>
+                    {@ _.each(releases, function(release) { @}
+                    <div class="item--body--version">
+                        <div class="item--left-column">
+                            <p>{@= release.version @}</p>
+                            <div class="spring-icon {@= release.statusIconClass() @}"></div>
+                        </div>
+                        <div class="item--right-column">
+                            <a href='{@= release.refDocUrl @}' class="docs-link reference-link">Reference</a>
+                            <a href='{@= release.apiDocUrl @}' class="docs-link api-link">API</a>
+                        </div>
+                    </div>
+                    {@ }); @}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="project-download-widget-controls-template">
+    <div class="js-download-widget-selector">
+        <select class='selector selectpicker'>
+            {@ _.each(releases, function(release, index) { @}
+            <option value="{@= index @}" data-content="<span>{@= release.versionDisplayName @}</span><div class='spring-icon {@= release.statusIconClass() @}'/>" data-current="{@= release.current @}"> ()</option>
+            {@ }); @}
+        </select>
+    </div>
+
+    <div class="item-slider-widget js-item-slider--wrapper">
+        <div class="item-slider--container">
+            <div class="item--slider js-item--slider"></div>
+            <div class="item js-active js-item" data-snippet-type='maven'>
+                Maven
+            </div>
+            <div class="item js-item" data-snippet-type='gradle'>
+                Gradle
+            </div>
+            <div class="item js-item" data-snippet-type='zip'>
+                Zip
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-maven-widget-template">
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;{@= groupId @}&lt;/groupId&gt;
+        &lt;artifactId&gt;{@= artifactId @}&lt;/artifactId&gt;
+        &lt;version&gt;{@= version @}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+{@ if (repository) { @}
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;{@= repository.id @}&lt;/id&gt;
+        &lt;name&gt;{@= repository.name @}&lt;/name&gt;
+        &lt;url&gt;{@= repository.url @}&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;{@= repository.snapshotsEnabled @}&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;{@ } @}
+</script>
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-gradle-widget-template">
+dependencies {
+    compile '{@= groupId @}:{@= artifactId @}:{@= version @}'
+}
+{@ if (repository) { @}
+repositories {
+    maven {
+        url '{@= repository.url @}'
+    }
+}
+{@ } @}
+</script>
+
+<script type="text/html" id="project-download-zip-widget-template">
+This is a zip url
+</script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42447510-1', 'cfapps.io');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>

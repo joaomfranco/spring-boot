@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spring Boot</title>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap-select.css" />
+
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/main.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/typography.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/icons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/projects.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/buttons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/guide.css.css" />
+
+  <script type="text/javascript" src="/spring-boot/js/jquery.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap-select.js"></script>
+
+  <script type="text/javascript" src="/spring-boot/js/underscore.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/backbone.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/projectDocumentationWidget.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/application.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/ZeroClipboard.min.js"></script>
+  <script type="text/javascript">
+    var apiBaseUrl = "http://springframework.io";
+    var projectId = "spring-boot";
+    var siteBaseUrl = "/spring-boot";
+  </script>
+  <script type="text/javascript" src="/spring-boot/js/copySnippets.js"></script>
+  <meta name="google-site-verification" content="7qGntFPD9lWAVCtUu5U77v4l68PsTHf6xpzgjQv2j2M" />
+</head>
+<body>
+  <header class="navbar header--navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <div class="spring-logo--container">
+          <div class="logo-bg"></div>
+          <a class="spring-logo" href="http://springframework.io"></a>
+        </div>
+        <ul class="nav pull-right">
+          <li class="navbar-link">
+            <a href="http://springframework.io/docs">Docs</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/guides">Guides</a>
+          </li>
+          <li class="navbar-link active">
+            <a href="http://springframework.io/projects">Projects</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/blog">Blog</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://forum.springframework.io">Forum</a>
+          </li>
+          <li class="navbar-link nav-search">
+            <i class="icon-search navbar-search--icon js-search-input-open"></i>
+            <div class="search-input-close js-search-input-close">x</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-dropdown--container js-search-dropdown">
+      <div class="container-fluid">
+        <div class="search-form--container">
+          <form class="form-inline form-search" action="http://springframework.io/search" method="get">
+            <input type="text" class="search-query search-form--form js-search-input" placeholder="Search for documention, guides, and posts..." name="q" />
+            <button type="submit" class="search-form--submit"><i class="icon-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="body--container container-fluid">
+    <h1 id="toc_0">Docs without a home as yet :(</h1>
+
+<table><thead>
+<tr>
+<th>Feature</th>
+<th>Implementation</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Launch Spring from Java main</td>
+<td>SpringApplication</td>
+<td>Plenty of convenience methods and customization opportunities</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>Tomcat or Jetty</td>
+<td></td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Logback, Log4j or JDK</td>
+<td>Sensible defaults configurations.</td>
+</tr>
+<tr>
+<td>Externalized configuration</td>
+<td>Properties or YAML</td>
+<td>Support for Spring profiles. Bind automatically to @Bean.</td>
+</tr>
+</tbody></table>
+
+<p>For a quick introduction and to get started quickly with a new
+project, carry on reading.  For more in depth coverage of the features
+of Spring Boot.Strap, go to the <a href="docs/Features.html">Feature Guide</a>.</p>
+
+<h1 id="toc_1">Getting Started</h1>
+
+<p>You will need Java (6 at least) and a build tool (Maven is what we use
+below, but you are more than welcome to use gradle).  These can be
+downloaded or installed easily in most operating systems.  For Ubuntu:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ sudo apt-get install openjdk-6-jdk maven
+</code></pre></div>
+<!--FIXME: short instructions for Mac.-->
+
+<h2 id="toc_2">A basic project</h2>
+
+<p>If you are using Maven create a really simple <code>pom.xml</code> with 2 dependencies:</p>
+
+<p><code>pom.xml</code></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.mycompany&lt;/groupId&gt;
+  &lt;artifactId&gt;myproject&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+  &lt;properties&gt;
+      &lt;start-class&gt;com.mycompany.Application&lt;/start-class&gt;
+  &lt;/properties&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;&lt;/version&gt;
+  &lt;/parent&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-starter&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-package-maven-plugin&lt;/artifactId&gt;
+     &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre></div>
+<p>If you like Gradle, that&#39;s fine, and you will know what to do with
+those dependencies.  The one dependency adds Spring Boot.Config auto
+configuration and the Tomcat container to your application.  If you
+prefer Jetty you can just add the embedded Jetty jars to your
+classpath instead of Tomcat.</p>
+
+<p>Now write a simple main class</p>
+
+<p><code>Application.java</code>
+```
+package com.mycompany;</p>
+
+<p>import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.Configuration;</p>
+
+<p>@Configuration
+public class Application {</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+}
+</code></pre></div>
+<p>}
+```</p>
+
+<p>You should be able to run it already:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ mvn package
+$ java -jar target/myproject-1.0.0-SNAPSHOT.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ Spring Bootstrap
+
+2013-07-19 17:13:51.673  INFO 18937 --- [           main] com.mycompany.Application ...
+... &lt;logs showing application starting up&gt;
+</code></pre></div>
+<p>It doesn&#39;t do anything yet, but that&#39;s because all we did is start a
+Spring <code>ApplicationContext</code> and let it close when the JVM stopped.</p>
+
+<p>To make it do something a little bit more interesting you could bind
+some command line arguments to the application:</p>
+
+<p><code>Application.java</code>
+```
+@Configuration
+@ConfigurationProperties
+@EnableConfigurationProperties
+public class Application {</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">private String message;
+
+@Override
+public void run(String... args) throws Exception {
+    System.err.println(message);
+}
+
+public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+}
+
+public String getMessage() {
+    return message;
+}
+
+public void setMessage(String message) {
+    this.message = message;
+}
+</code></pre></div>
+<p>}
+```</p>
+
+<p>The <code>@ConfigurationProperties</code> annotation binds the Spring
+<code>Environment</code> (including command line arguments) to the <code>Application</code>
+instance, and <code>CommandLineRunner</code> is a marker interface for anything
+you want to be executed after the content is started. So run it
+again and you will see the message:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    $ mvn package
+    $ java -jar target/myproject-1.0.0-SNAPSHOT.jar --message=&quot;Hello World&quot;
+    ...
+    Hello World
+</code></pre></div>
+<p>To add more features, add some <code>@Bean</code> definitions to your
+<code>Application</code> class, and read more in the
+<a href="docs/Features.html">Feature Guide</a>.</p>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span8">
+          <div class="navbar">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="http://springframework.io/tools">Tools</a></li>
+                <li><a href="http://springframework.io/services">Services</a></li>
+                <li><a href="http://springframework.io/about">About Us</a></li>
+                <li><a href="http://springframework.io/jobs">Work With Us</a></li>
+              </ul>
+            </div>
+          </div>
+          &copy; <script type="text/javascript"> var d = new Date();
+                document.write(d.getFullYear());</script> GoPivotal, Inc. All Rights Reserved.
+          <a href="http://www.gopivotal.com/terms-of-use">Terms</a>,
+          <a href="http://www.gopivotal.com/privacy-policy">Privacy</a>, and
+          <a href="http://springframework.io/logos">Usage</a>
+        </div>
+        <div class="span4 footer-newsletter--wrapper pull-right">
+          <div class="footer-newsletter--container">
+            <form>
+              <label>
+                Subscribe to our newsletter
+              </label>
+              <div class="footer-subscribe--input--container">
+                <input class="footer-subscribe--input" placeholder="Email Address (NOT REAL)" />
+                <input type="submit" class="btn footer-subscibe--btn" value="Subscribe" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="scrim"></div>
+  <script type="text/html" id="project-documentation-widget-template">
+    <div class="right-pane-widget--container no-top-border project-documentation--container">
+        <div class="item-dropdown-widget">
+            <div class="item-dropdown--title">{@= name @}</div>
+            <div class="item--dropdown">
+                <div class="item--body">
+                    <div class="item--body-title">
+                        <div class="item--left-column">Release</div>
+                        <div class="item--right-column">Documentation</div>
+                    </div>
+                    {@ _.each(releases, function(release) { @}
+                    <div class="item--body--version">
+                        <div class="item--left-column">
+                            <p>{@= release.version @}</p>
+                            <div class="spring-icon {@= release.statusIconClass() @}"></div>
+                        </div>
+                        <div class="item--right-column">
+                            <a href='{@= release.refDocUrl @}' class="docs-link reference-link">Reference</a>
+                            <a href='{@= release.apiDocUrl @}' class="docs-link api-link">API</a>
+                        </div>
+                    </div>
+                    {@ }); @}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="project-download-widget-controls-template">
+    <div class="js-download-widget-selector">
+        <select class='selector selectpicker'>
+            {@ _.each(releases, function(release, index) { @}
+            <option value="{@= index @}" data-content="<span>{@= release.versionDisplayName @}</span><div class='spring-icon {@= release.statusIconClass() @}'/>" data-current="{@= release.current @}"> ()</option>
+            {@ }); @}
+        </select>
+    </div>
+
+    <div class="item-slider-widget js-item-slider--wrapper">
+        <div class="item-slider--container">
+            <div class="item--slider js-item--slider"></div>
+            <div class="item js-active js-item" data-snippet-type='maven'>
+                Maven
+            </div>
+            <div class="item js-item" data-snippet-type='gradle'>
+                Gradle
+            </div>
+            <div class="item js-item" data-snippet-type='zip'>
+                Zip
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-maven-widget-template">
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;{@= groupId @}&lt;/groupId&gt;
+        &lt;artifactId&gt;{@= artifactId @}&lt;/artifactId&gt;
+        &lt;version&gt;{@= version @}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+{@ if (repository) { @}
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;{@= repository.id @}&lt;/id&gt;
+        &lt;name&gt;{@= repository.name @}&lt;/name&gt;
+        &lt;url&gt;{@= repository.url @}&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;{@= repository.snapshotsEnabled @}&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;{@ } @}
+</script>
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-gradle-widget-template">
+dependencies {
+    compile '{@= groupId @}:{@= artifactId @}:{@= version @}'
+}
+{@ if (repository) { @}
+repositories {
+    maven {
+        url '{@= repository.url @}'
+    }
+}
+{@ } @}
+</script>
+
+<script type="text/html" id="project-download-zip-widget-template">
+This is a zip url
+</script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42447510-1', 'cfapps.io');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>

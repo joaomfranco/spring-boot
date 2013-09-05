@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spring Boot</title>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap.min.css" />
+  <link href='http://fonts.googleapis.com/css?family=Varela+Round|Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/spring-boot/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/bootstrap/css/bootstrap-select.css" />
+
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/main.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/typography.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/icons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/projects.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/buttons.css.css" />
+  <link rel="stylesheet" type="text/css" href="/spring-boot/css/guide.css.css" />
+
+  <script type="text/javascript" src="/spring-boot/js/jquery.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/spring-boot/bootstrap/js/bootstrap-select.js"></script>
+
+  <script type="text/javascript" src="/spring-boot/js/underscore.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/backbone.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/projectDocumentationWidget.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/application.js"></script>
+  <script type="text/javascript" src="/spring-boot/js/ZeroClipboard.min.js"></script>
+  <script type="text/javascript">
+    var apiBaseUrl = "http://springframework.io";
+    var projectId = "spring-boot";
+    var siteBaseUrl = "/spring-boot";
+  </script>
+  <script type="text/javascript" src="/spring-boot/js/copySnippets.js"></script>
+  <meta name="google-site-verification" content="7qGntFPD9lWAVCtUu5U77v4l68PsTHf6xpzgjQv2j2M" />
+</head>
+<body>
+  <header class="navbar header--navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <div class="spring-logo--container">
+          <div class="logo-bg"></div>
+          <a class="spring-logo" href="http://springframework.io"></a>
+        </div>
+        <ul class="nav pull-right">
+          <li class="navbar-link">
+            <a href="http://springframework.io/docs">Docs</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/guides">Guides</a>
+          </li>
+          <li class="navbar-link active">
+            <a href="http://springframework.io/projects">Projects</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://springframework.io/blog">Blog</a>
+          </li>
+          <li class="navbar-link">
+            <a href="http://forum.springframework.io">Forum</a>
+          </li>
+          <li class="navbar-link nav-search">
+            <i class="icon-search navbar-search--icon js-search-input-open"></i>
+            <div class="search-input-close js-search-input-close">x</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="search-dropdown--container js-search-dropdown">
+      <div class="container-fluid">
+        <div class="search-form--container">
+          <form class="form-inline form-search" action="http://springframework.io/search" method="get">
+            <input type="text" class="search-query search-form--form js-search-input" placeholder="Search for documention, guides, and posts..." name="q" />
+            <button type="submit" class="search-form--submit"><i class="icon-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="body--container container-fluid">
+    <h1 id="toc_0">Spring Actuator Feature Guide</h1>
+
+<p>Here are some (most, hopefully all) the features of Spring Actuator 
+with some commentary to help you start using them.  We
+recommend you first build a project with the Actuator (e.g. the
+getting started project from the main README), and then try each
+feature in turn there.</p>
+
+<p>Many useful features of
+<a href="../../spring-boot/README.html">Spring Boot</a> are all available
+in an Actuator application.</p>
+
+<p>TODO: group things together and break them out into separate files.</p>
+
+<h2 id="toc_1">Customizing Management Endpoints</h2>
+
+<p>The <code>ManagementProperties</code> are bound to application properties, and
+can be used to specify</p>
+
+<ul>
+<li><p>The port that the application listens on for the management
+endpoints (defaults to 8080)</p></li>
+<li><p>The address that the management endpoints are available on (if the
+port is different to the main server port).  Use this to listen only
+on an internal or ops-facing network, for instance, or to only
+listen for connections from localhost (by specifying &quot;127.0.0.1&quot;)</p></li>
+<li><p>The context root of the management endpoints</p></li>
+</ul>
+
+<h2 id="toc_2">Error Handling</h2>
+
+<p>The Actuator provides an <code>/error</code> mapping by default that handles all
+errors in a sensible way.  If you want more specific error pages for
+some conditions, the embedded servlet containers support a uniform
+Java DSL for customizing the error handling.  To do this you have to
+have picked a container implementation (by including either Tomcat or
+Jetty on the classpath), but then the API is the same.  TODO: finish
+this.</p>
+
+<h2 id="toc_3">Info Endpoint</h2>
+
+<p>By default the Actuator adds an <code>/info</code> endpoint to the main server.
+It contains the commit and timestamp information from <code>git.properties</code>
+(if that file exists) and also any properties it finds in the
+environment with prefix &quot;info&quot;.</p>
+
+<p>To populate <code>git.properties</code> in a
+Maven build you can use the excellent
+<a href="https://github.com/ktoso/maven-git-commit-id-plugin">git-commit-id-plugin</a>.</p>
+
+<p>To populate the &quot;info&quot; map all you need to do is add some stuff to
+<code>application.properties</code>, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">info.app.name: MyService
+info.app.description: My awesome service
+info.app.version: 1.0.0
+</code></pre></div>
+<p>If you are using Maven you can automcatically populate info properties
+from the project using resource filtering.  In your <code>pom.xml</code> you
+have (inside the <code>&lt;build/&gt;</code> element):</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">    &lt;resources&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;filtering&gt;true&lt;/filtering&gt;
+        &lt;/resource&gt;
+    &lt;/resources&gt;
+</code></pre></div>
+<p>and then in the <code>application.properties</code> you can refer to project
+properties via placeholders, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">project.artifactId: myproject
+project.name: Demo
+project.version: X.X.X.X
+project.description: Demo project for info endpoint
+info.build.artifact: ${project.artifactId}
+info.build.name: ${project.name}
+info.build.description: ${project.description}
+info.build.version: ${project.version}
+</code></pre></div>
+<p>(notice that in the example we used <code>project.*</code> to set some values to
+be used as fallbacks if the Maven resource filtering has for some
+reason not been switched on).</p>
+
+<h2 id="toc_4">Security - Basic Authentication</h2>
+
+<p>To secure your endpoints just add Spring Security Javaconfig to the
+classpath.  By default HTTP Basic authentication will be applied to
+every request in the main server (and the management server if it is
+running on the same port).  There is a single account by default, and
+you can test it like this:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ curl user:password@localhost:8080/metrics
+... stuff comes out
+</code></pre></div>
+<p>If the management server is running on a different port it is
+unsecured by default.  If you want to secure it you can add a security
+auto configuration explicitly</p>
+
+<h2 id="toc_5">Security - HTTPS</h2>
+
+<p>Ensuring that all your main endpoints are only available over HTTPS is
+an important chore for any application.  If you are using Tomcat as a
+servlet container, then the Actuator will add Tomcat&#39;s own
+<code>RemoteIpValve</code> automatically if it detects some environment settings,
+and you should be able to rely on the <code>HttpServletRequest</code> to report
+whether or not it is secure (even downstream of the real SSL
+termination endpoint).  The standard behaviour is determined by the
+presence or absence of certain request headers (&quot;x-forwarded-for&quot; and
+&quot;x-forwarded-proto&quot;), whose names are conventional, so it should work
+with most front end proxies.  You switch on the valve by adding some
+entries to <code>application.properties</code>, e.g.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">server.tomcat.remote_ip_header: x-forwarded-for
+server.tomcat.protocol_header: x-forwarded-proto
+</code></pre></div>
+<p>(The presence of either of those properties will switch on the
+valve. Or you can add the <code>RemoteIpValve</code> yourself by adding a
+<code>TomcatEmbeddedServletContainerFactory</code> bean.)</p>
+
+<p>Spring Security can also be configured to require a secure channel for
+all (or some requests). To switch that on in an Actuator application
+you just need to set <code>security.require_https: true</code> in
+<code>application.properties</code>.</p>
+
+<h2 id="toc_6">Audit Events</h2>
+
+<p>The Actuator has a flexible audit framework that will publish events
+once Spring Security is in play (authentication success and failure
+and access denied exceptions by default).  This can be very useful for
+reporting, and also to implement a lock-out policy based on
+authentication failures.</p>
+
+<p>You can also choose to use the audit services for your own business
+events.  To do that you can either inject the existing
+<code>AuditEventRepository</code> into your own components and use that directly,
+or you can simply publish <code>AuditApplicationEvent</code> via the Spring
+<code>ApplicationContext</code> (using <code>ApplicationEventPublisherAware</code>).</p>
+
+<h2 id="toc_7">Metrics Customization</h2>
+
+<p>Metrics come out on the <code>/metrics</code> endpoint.  You can add additional
+metrics by injecting a <code>MetricsRepository</code> into your application
+components and adding metrics whenever you need to.  To customize the
+<code>MetricsRepository</code> itself, just add a bean definition of that type to
+the application context (only in memory is supported out of the box
+for now).</p>
+
+<h2 id="toc_8">Customizing the Health Indicator</h2>
+
+<p>The application always tells you if it&#39;s healthy via the <code>/health</code>
+endpoint.  By default it just responds to a GET witha 200 status and a
+plain text body containing &quot;ok&quot;.  If you want to add more detailed
+information (e.g. a description of the current state of the
+application), just add a bean of type <code>HealthIndicator</code> to your
+application context, and it will take the place of the default one.</p>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span8">
+          <div class="navbar">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="http://springframework.io/tools">Tools</a></li>
+                <li><a href="http://springframework.io/services">Services</a></li>
+                <li><a href="http://springframework.io/about">About Us</a></li>
+                <li><a href="http://springframework.io/jobs">Work With Us</a></li>
+              </ul>
+            </div>
+          </div>
+          &copy; <script type="text/javascript"> var d = new Date();
+                document.write(d.getFullYear());</script> GoPivotal, Inc. All Rights Reserved.
+          <a href="http://www.gopivotal.com/terms-of-use">Terms</a>,
+          <a href="http://www.gopivotal.com/privacy-policy">Privacy</a>, and
+          <a href="http://springframework.io/logos">Usage</a>
+        </div>
+        <div class="span4 footer-newsletter--wrapper pull-right">
+          <div class="footer-newsletter--container">
+            <form>
+              <label>
+                Subscribe to our newsletter
+              </label>
+              <div class="footer-subscribe--input--container">
+                <input class="footer-subscribe--input" placeholder="Email Address (NOT REAL)" />
+                <input type="submit" class="btn footer-subscibe--btn" value="Subscribe" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div id="scrim"></div>
+  <script type="text/html" id="project-documentation-widget-template">
+    <div class="right-pane-widget--container no-top-border project-documentation--container">
+        <div class="item-dropdown-widget">
+            <div class="item-dropdown--title">{@= name @}</div>
+            <div class="item--dropdown">
+                <div class="item--body">
+                    <div class="item--body-title">
+                        <div class="item--left-column">Release</div>
+                        <div class="item--right-column">Documentation</div>
+                    </div>
+                    {@ _.each(releases, function(release) { @}
+                    <div class="item--body--version">
+                        <div class="item--left-column">
+                            <p>{@= release.version @}</p>
+                            <div class="spring-icon {@= release.statusIconClass() @}"></div>
+                        </div>
+                        <div class="item--right-column">
+                            <a href='{@= release.refDocUrl @}' class="docs-link reference-link">Reference</a>
+                            <a href='{@= release.apiDocUrl @}' class="docs-link api-link">API</a>
+                        </div>
+                    </div>
+                    {@ }); @}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="project-download-widget-controls-template">
+    <div class="js-download-widget-selector">
+        <select class='selector selectpicker'>
+            {@ _.each(releases, function(release, index) { @}
+            <option value="{@= index @}" data-content="<span>{@= release.versionDisplayName @}</span><div class='spring-icon {@= release.statusIconClass() @}'/>" data-current="{@= release.current @}"> ()</option>
+            {@ }); @}
+        </select>
+    </div>
+
+    <div class="item-slider-widget js-item-slider--wrapper">
+        <div class="item-slider--container">
+            <div class="item--slider js-item--slider"></div>
+            <div class="item js-active js-item" data-snippet-type='maven'>
+                Maven
+            </div>
+            <div class="item js-item" data-snippet-type='gradle'>
+                Gradle
+            </div>
+            <div class="item js-item" data-snippet-type='zip'>
+                Zip
+            </div>
+        </div>
+    </div>
+
+</script>
+
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-maven-widget-template">
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;{@= groupId @}&lt;/groupId&gt;
+        &lt;artifactId&gt;{@= artifactId @}&lt;/artifactId&gt;
+        &lt;version&gt;{@= version @}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+{@ if (repository) { @}
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;{@= repository.id @}&lt;/id&gt;
+        &lt;name&gt;{@= repository.name @}&lt;/name&gt;
+        &lt;url&gt;{@= repository.url @}&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;{@= repository.snapshotsEnabled @}&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;{@ } @}
+</script>
+
+
+
+
+
+
+
+<script type="text/html" id="project-download-gradle-widget-template">
+dependencies {
+    compile '{@= groupId @}:{@= artifactId @}:{@= version @}'
+}
+{@ if (repository) { @}
+repositories {
+    maven {
+        url '{@= repository.url @}'
+    }
+}
+{@ } @}
+</script>
+
+<script type="text/html" id="project-download-zip-widget-template">
+This is a zip url
+</script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42447510-1', 'cfapps.io');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>
